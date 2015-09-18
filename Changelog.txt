@@ -1,0 +1,1 @@
+Scanner.cs— put in tests for whitespaces and comments. Pending questions, aint done yet. 
