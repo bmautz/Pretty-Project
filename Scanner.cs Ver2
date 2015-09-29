@@ -1,0 +1,41 @@
+oid int2bitstr(int I, char *str)
+ {
+        /* implment here */
+    int bit;
+    int x;
+
+  for(x = 31; x >= 0; x--)
+    {
+        bit = (I >> x) & 1;
+
+        if( (bit & 1) == 1)
+            str[31-x] = '1';
+
+        else
+            str[31-x] = '0';
+    }
+
+
+    str[32] = '\0';
+    return;
+}
+
+int get_exp_value(float f)
+{
+        unsigned f2u(float f);
+        unsigned int ui = f2u(f);
+        /* implment here */
+
+        int exp;
+        int bias = 127;
+
+        if( ((ui >> 23) == 0) & ((ui >> 24) == 0) & ((ui >> 25) == 0) & ((ui >>         26) == 0) & ((ui >> 27) == 0) & ((ui >> 27) == 0) & ((ui >> 28) == 0) &  ((ui >> 29) == 0) & ((ui >> 30) == 0))
+                 exp = 1 - bias;
+        else
+        {
+                ui = (ui >> 23) & 0xFF;
+                exp = ui - bias;
+        }
+        return exp;
+
+}
