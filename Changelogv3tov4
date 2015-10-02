@@ -1,0 +1,3 @@
+Line 124: added opening bracket to else statement
+Line 37: changed String.IsWhiteSpace(ch) to Char.IsWhiteSpace((char)ch)
+Line 25: added int count = 0;
