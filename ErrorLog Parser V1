@@ -1,0 +1,45 @@
+use boolLit, etc to change t from token into Nodes, so that Cons will accept it as a viable parameter.
+
+
+
+
+
+SPP.cs(49,14): warning CS0219: The variable `root' is assigned but its value is never used
+Parse/Parser.cs(202,22): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(204,17): error CS0119: Expression denotes a `type', where a `variable', `value' or `method group' was expected
+Parse/Parser.cs(206,22): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(208,17): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(210,22): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(212,17): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(214,22): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(216,17): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(218,22): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(220,17): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(222,22): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(224,17): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(235,16): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(237,17): error CS0029: Cannot implicitly convert type `Tokens.Token' to `Tree.Node'
+Parse/Parser.cs(245,21): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(248,25): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(258,25): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(262,21): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(269,17): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(271,17): error CS0103: The name `parseRestO' does not exist in the current context
+Parse/Parser.cs(273,22): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(275,17): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(277,22): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(279,17): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(281,22): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(283,17): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(285,22): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(287,17): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(289,22): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(291,17): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(293,22): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(295,17): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(305,17): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(307,17): error CS0029: Cannot implicitly convert type `Tokens.Token' to `Tree.Node'
+Parse/Parser.cs(314,21): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(317,26): error CS0019: Operator `==' cannot be applied to operands of type `Tokens.Token' and `Tokens.TokenType'
+Parse/Parser.cs(328,29): error CS0103: The name `cons' does not exist in the current context
+Parse/Parser.cs(333,21): error CS0103: The name `cons' does not exist in the current context
