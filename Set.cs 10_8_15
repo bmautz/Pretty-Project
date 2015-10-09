@@ -1,0 +1,33 @@
+// Set -- Parse tree node strategy for printing the special form set!
+
+using System;
+
+namespace Tree
+{
+    public class Set : Special
+    {
+        // TODO: Add any fields needed.
+ 
+        // TODO: Add an appropriate constructor.
+	public Set() { }
+	
+        public override void print(Node t, int n, bool p)
+        {
+            // TODO: Implement this function.
+            Console.WriteLine("Set");
+            //Fix this later
+            //Actually include the indentation
+            //FIXME
+            /*t.begin = 
+            while (p == FALSE)
+            {
+
+            print doublequote
+            for every letter in String
+                print letter
+            print space
+            }*/
+        }
+    }
+}
+
