@@ -1,0 +1,37 @@
+// Begin -- Parse tree node strategy for printing the special form begin
+
+using System;
+
+namespace Tree
+{
+    public class Begin : Special
+    {
+        // TODO: Add any fields needed.
+ 
+        // TODO: Add an appropriate constructor.
+        public string beginName;
+	    public Begin(String A) 
+        { 
+            beginName = A;
+        }
+
+        public override void print(Node t, int n, bool p)
+        {
+            // TODO: Implement this function.
+            Console.WriteLine("Begin");
+            //Fix this later
+            //Actually include the indentation
+            //FIXME
+            /*t.begin = 
+            while (p == FALSE)
+            {
+
+            print doublequote
+            for every letter in String
+                print letter
+            print space
+            }*/
+        }
+    }
+}
+
