@@ -1,0 +1,141 @@
+// Cons -- Parse tree node class for representing a Cons node
+
+using System;
+
+namespace Tree
+{
+    public class Cons : Node
+    {
+        private Node car;
+        private Node cdr;
+        private Special form;
+    
+        public Cons(Node a, Node d)
+        {
+            car = a;
+            cdr = d;
+            print(0);
+            //parseList();   i think this may not get called here
+            //Console.WriteLine(car);
+            //Console.WriteLine(cdr);
+        }
+    
+        int indentVar = 0; //negative if not needed.
+        int parenVar = 0;
+        // parseList() `parses' special forms, constructs an appropriate
+        // object of a subclass of Special, and stores a pointer to that
+        // object in variable form.  It would be possible to fully parse
+        // special forms at this point.  Since this causes complications
+        // when using (incorrect) programs as data, it is easiest to let
+        // parseList only look at the car for selecting the appropriate
+        // object from the Special hierarchy and to leave the rest of
+        // parsing up to the interpreter.
+        void parseList(Node rt)
+        {
+            // TODO: implement this function and any helper functions
+            // you might need.
+            Cons.print();
+            car.print();
+            
+            if(rt.getCar().isNumber() == true)
+            { 
+                IntLit.print(indentVar);
+            }
+            else if(rt.getCar().isBool() == true)
+            { 
+                BoolLit.print(indentVar);
+                //may need a return value FIXME
+            }
+            else if(rt.getCar().isSymbol() == true)
+            { 
+                Ident.print(indentVar);
+            }
+            else if(rt.getCar().isString() == true)
+            { 
+                StringLit.print(indentVar);
+            }
+            else if(rt.getCar().isNull() == true)
+            { 
+                Nil.print(indentVar);
+            }
+            else if(rt.getCar().isPair() == true)
+            { 
+                print(indentVar);
+            }
+            //still confused about this
+            else
+            { 
+                parseList(rt.getCar());
+            }
+
+            //Copy above with cdr instead of car FIXME
+            cdr.print();
+            
+            if(rt.getCdr().isNumber() == true)
+            { 
+                IntLit.print(indentVar);
+            }
+            else if(rt.getCdr().isBool() == true)
+            { 
+                BoolLit.print(indentVar);
+                //may need a return value FIXME
+            }
+            else if(rt.getCdr().isSymbol() == true)
+            { 
+                Ident.print(indentVar);
+            }
+            else if(rt.getCdr().isString() == true)
+            { 
+                StringLit.print(indentVar);
+            }
+            else if(rt.getCdr().isNull() == true)
+            { 
+                Nil.print(indentVar);
+            }
+            else if(rt.getCdr().isPair() == true)
+            { 
+                print(indentVar);
+            }
+            else
+            { 
+                parseList(rt.getCdr());
+            }
+
+
+
+
+
+
+
+        }
+ 
+        public override void print(int n)
+        {
+            car.print(0);
+            cdr.print(0);
+            //form.print(this, n, false);
+        }
+
+        public override void print(int n, bool p)
+        {
+            form.print(this, n, p);
+        }
+
+        public Node getCar(Node x)
+        {
+            return Cons.car;
+        }
+
+        public Node getCdr(Node x)
+        {
+             return Cons.cdr;    
+        }
+        
+       /* public bool isPair()
+        {
+            if(Cons.car )
+        }
+        */
+        
+    }
+}
