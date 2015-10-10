@@ -1,0 +1,415 @@
+// Parser -- the parser for the Scheme printer and interpreter
+//
+// Defines
+//
+//   class Parser;
+//
+// Parses the language
+//
+//   exp  ->  ( rest
+//         |  #f
+//         |  #t
+//         |  ' exp
+//         |  integer_constant
+//         |  string_constant
+//         |  identifier
+//    rest -> )
+//         |  exp+ [. exp] )
+//
+// and builds a parse tree.  Lists of the form (rest) are further
+// `parsed' into regular lists and special forms in the constructor
+// for the parse tree node class Cons.  See Cons.parseList() for
+// more information.
+//
+// The parser is implemented as an LL(0) recursive descent parser.
+// I.e., parseExp() expects that the first token of an exp has not
+// been read yet.  If parseRest() reads the first token of an exp
+// before calling parseExp(), that token must be put back so that
+// it can be reread by parseExp() or an alternative version of
+// parseExp() must be called.
+//
+// If EOF is reached (i.e., if the scanner returns a NULL) token,
+// the parser returns a NULL tree.  In case of a parse error, the
+// parser discards the offending token (which probably was a DOT
+// or an RPAREN) and attempts to continue parsing with the next token.
+
+using System;
+using Tokens;
+using Tree;
+
+namespace Parse
+{
+    public class Parser {
+	
+        private Scanner scanner;
+
+        public Parser(Scanner s) 
+        {
+            scanner = s; 
+        }
+  
+        /*public Node parseExp()
+        {
+            Token nt = scanner.getNextToken();
+            TokenType ty = nt.getType();
+            if (nt.isNull())
+            {
+                return null;
+            }
+            else if (ty == TokenType.LPAREN)
+            {
+                Console.WriteLine("Token : " + nt + " ");
+                cons(parseRest(), parsExp());
+            }
+            else if (nt == false)
+            {
+                Console.WriteLine("Token : " + nt + " ");
+                cons(false, parsExp());
+            }
+            else if (nt == true)
+            {
+                Console.WriteLine("Token : " + nt + " ");
+                cons(true, parsExp());
+            }
+            else if (ty == TokenType.QUOTE)
+            {
+
+            }
+            //getnext token
+            //Token tok = scanner.getNextToken();
+            //TokenType tt = tok.getType();
+
+            //  if (tt == TokenType.LPAREN){
+            //      cons(LPAREN, parseExp());
+            //}
+            //  else if (tt == TokenType.TRUE){
+            //
+            //}
+            //  else if (tt == TokenType.FALSE){
+            //
+            //}
+            //  else if (tt == TokenType.QUOTE){
+            //      cons(cons(QUOTE, parseExp()), parseExp());
+            //}
+            //  else if (tt == TokenType.STRING){
+            //      cons(tok.getStringVal(), parsExp());
+            //      
+            //}
+            //  else if (tt == TokenType.INT){
+            //      tok.getIntVal();
+            //}
+            //  else if (tt == TokenType.IDENT){
+            //      tok.getName();
+            //}
+            //  else {
+            //      Console.Error.WriteLine("ERROR: Something else got through: " + tt;
+            //}
+            //
+            //
+            // TODO: write code for parsing an exp
+            //
+            //
+            return null;
+        }
+  
+        protected Node parseRest()
+        {
+            bool isdot = false;
+            //pull token
+            if (tt == TokenType.RPAREN)
+            {
+
+            }
+            // TODO: write code for parsing a rest
+            //if (tt == TokenType.RPAREN){
+            //  return (RPAREN);
+            //}
+            //else{
+            //   parseExp();
+            // if (tt == TokenType.DOT){
+            //      
+            //     }
+            // else {
+            //
+            //      }
+            //}
+            //
+            return null;
+        }
+
+        // TODO: Add any additional methods you might need.
+                                                                                //TEST THIS!!!!!!!!!!!!!!!   TESTME
+       // public Node loadTree(Scanner s){
+        //    Token tn = s.getNextToken(s):
+         //   if (tn.isNull()){
+         //       return null;
+         //   }
+          //  else if (tn == TokenType.LPAREN)
+           // {
+           //     cons(loadTree(s),loadTree(s));
+            //}
+        //    else
+         //   {
+          //      cons(tn, loadTree(s));
+           // }
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
+           // getNextToken from Scanner
+        public Nil nadda = new Nil();
+        public Node fals = new BoolLit(false);
+        public Node tru = new BoolLit(true);
+
+        public Node parseExp(Token t)
+        {
+            
+            Console.WriteLine("parseExp");
+            Console.WriteLine(t);
+            if(t.getType().Equals(TokenType.LPAREN))
+            {
+                Console.WriteLine("Parsed: LPAREN");
+                return parseRest();
+            }
+            else if (t.getType().Equals(TokenType.FALSE))
+            {
+                return new Cons(fals, parseExp(scanner.getNextToken()));
+            }
+            else if (t.getType().Equals(TokenType.TRUE))
+            {
+                return new Cons(tru, parseExp(scanner.getNextToken()));
+            }
+            else if (t.getType().Equals(TokenType.QUOTE))
+            {        
+                Console.WriteLine("Parsed: Quote");
+                Ident idenQ = new Ident("'");   //define getName somewhere, may already be defined 
+                return new Cons(new Cons(idenQ, parseExp(scanner.getNextToken())), parseExp(scanner.getNextToken()));
+                //Console.WriteLine(t.getName());
+            }
+            else if (t.getType().Equals(TokenType.INT))
+            {
+                Console.WriteLine("Parsed: Int" + t.getIntVal());
+                IntLit inttok = new IntLit(t.getIntVal());  //may need to modify getIntVal (currently in token overriden in node)
+                return new Cons(inttok, parseExp(scanner.getNextToken()));
+            }
+            else if (t.getType().Equals(TokenType.STRING))
+            {
+                Console.WriteLine("Parsed: String");
+                StringLit stri = new StringLit(t.getStringVal());    //define getName somewhere, may already be defined in stringtoken
+                return new Cons(stri, parseExp(scanner.getNextToken()));         //????is it one token, or does it need more? Fixme
+            }
+            else if (t.getType().Equals(TokenType.IDENT))
+            {     
+                Console.WriteLine("Parsed: Ident");
+                Ident nam = new Ident(t.getName());
+                return new Cons(nam, parseExp(scanner.getNextToken()));
+            }
+            else 
+            {
+                return null;  ///chnage to nadda for not testing
+            }
+        }
+
+        public Node parseRest()
+        {
+
+            Console.WriteLine("parseRest");
+            Token t1 = scanner.getNextToken();
+            if(t1.getType().Equals(TokenType.RPAREN))
+            {
+                Console.WriteLine("Parsed: RPAREN");
+                return nadda;
+            }
+            else if (t1 == null)                //may not be needed 
+            {
+                return nadda;
+            }
+            else if(t1.getType().Equals(TokenType.LPAREN))
+            {
+                Console.WriteLine("Parsed: LPAREN");  //need to pront lparen at some point
+                return parseRest();
+            }
+            else if (t1.getType().Equals(TokenType.FALSE))
+            {
+                return new Cons(fals, parseExp(scanner.getNextToken()));
+            }
+            else if (t1.getType().Equals(TokenType.TRUE))
+            {
+                return new Cons(tru, parseExp(scanner.getNextToken()));
+            }
+            else if (t1.getType().Equals(TokenType.QUOTE))
+            {        
+                Console.WriteLine("Parsed: Quote");
+                Ident idenQ = new Ident("'");   //define getName somewhere, may already be defined 
+                return new Cons(new Cons(idenQ, parseExp(scanner.getNextToken())), parseExp(scanner.getNextToken()));
+                //Console.WriteLine(t.getName());
+            }
+            else if (t1.getType().Equals(TokenType.INT))
+            {
+                Console.WriteLine("Parsed: Int" + t.getIntVal());
+                IntLit inttok = new IntLit(t.getIntVal());  //may need to modify getIntVal (currently in token overriden in node)
+                return new Cons(inttok, parseExp(scanner.getNextToken()));
+            }
+            else if (t1.getType().Equals(TokenType.STRING))
+            {
+                Console.WriteLine("Parsed: String");
+                StringLit stri = new StringLit(t.getStringVal());    //define getName somewhere, may already be defined in stringtoken
+                return new Cons(stri, parseExp(scanner.getNextToken()));         //????is it one token, or does it need more? Fixme
+            }
+            else if (t1.getType().Equals(TokenType.IDENT))
+            {     
+                Console.WriteLine("Parsed: Ident");
+                Ident nam = new Ident(t.getName());
+                return new Cons(nam, parseExp(scanner.getNextToken()));
+            }
+            else {
+                Token tdot = scanner.getNextToken();
+                if (tdot.getType().Equals(TokenType.DOT))
+                {
+                    Token t2 = scanner.getNextToken();
+                    if (t2.getType().Equals(TokenType.RPAREN))
+                    {
+                            Console.Error.WriteLine("IOException: Must have EXP after DOT");
+                            return null;
+                    }
+                    else if (t2 == null)
+                    {
+                        return nadda;
+                    }
+                    else {
+                        return new Cons(parseExpO(t1, t2), parseExp(scanner.getNextToken()));    
+                    }
+                }
+                else {
+                    StringLit myst = new StringLit(t1.getStringVal());   //FIXME test if works for any value of t1
+                    return new Cons(myst, parseExp(tdot));        //possibly change into chain of if statements
+                }
+            }
+        }
+        
+        public Node parseExpO(Token t1, Token t2)
+        {
+
+            Console.WriteLine("parseExpO");
+            if (t1.getType().Equals(TokenType.LPAREN))
+            {
+                Console.WriteLine("Parsed: LPAREN");
+                return parseRestO(t2);
+            }
+            else if (t1.getType().Equals(TokenType.FALSE))
+            {
+                return new Cons(fals, parseExp(t2));
+            }
+            else if (t1.getType().Equals(TokenType.TRUE))
+            {
+                return new Cons(tru, parseExp(t2));
+            }
+            else if (t1.getType().Equals(TokenType.QUOTE))
+            {
+                Console.WriteLine("Parsed: Quote");
+                Ident idenQ = new Ident("'");   //define getName somewhere, may already be defined 
+                return new Cons(new Cons(idenQ, parseExp(t2)), parseExp(scanner.getNextToken()));
+            }
+            else if (t1.getType().Equals(TokenType.INT))
+            {
+                Console.WriteLine("Parsed: Int");
+                IntLit inttok = new IntLit(t1.getIntVal());  //may need to modify getIntVal (currently in token overriden in node)
+                return new Cons(inttok, parseExp(t2));
+            }
+            else if (t1.getType().Equals(TokenType.STRING))
+            {
+                Console.WriteLine("Parsed: String");
+                StringLit stri = new StringLit(t1.getStringVal());    //define getName somewhere, may already be defined in stringtoken
+                return new Cons(stri, parseExp(t2));         //????is it one token, or does it need more? Fixme
+            }
+            else if (t1.getType().Equals(TokenType.IDENT))
+            {
+                Console.WriteLine("Parsed: Ident");
+                Ident nam = new Ident(t1.getName());
+                return new Cons(nam, parseExp(t2));
+            }
+            else 
+            {
+                return nadda;
+            }
+        }
+
+        public Node parseRestO(Token t)
+        {
+
+            Console.WriteLine("parseRestO");
+            if (t.getType().Equals(TokenType.RPAREN))
+            {
+                Console.WriteLine("RPAREN");
+                return nadda;
+            }
+            else if (t == null){
+                return null;
+            }
+            else {
+                Token tdot = scanner.getNextToken();
+                if (tdot.getType().Equals(TokenType.DOT))
+                {
+                    Token t2 = scanner.getNextToken();
+                     if (t2.getType().Equals(TokenType.RPAREN))
+                        {
+                            Console.Error.WriteLine("IOException: Must have EXP after DOT");
+                            return null;
+                        }
+                        else if (t2 == null)
+                        {
+                            return null;
+                        }
+                        else 
+                        {
+                            return new Cons(parseExpO(t, t2), parseExp(scanner.getNextToken()));    
+                        }
+                }
+                else 
+                {
+                    StringLit myst = new StringLit(t.getStringVal());   //FIXME test if works for any value of t1
+                    return new Cons(myst, parseExp(tdot));
+                }
+            }
+        }
+    }
+}
+
+//        }
+//    }
+//}
