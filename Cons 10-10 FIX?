@@ -1,0 +1,90 @@
+// Cons -- Parse tree node class for representing a Cons node
+
+using System;
+
+namespace Tree
+{
+    public class Cons : Node
+    {
+        private Node car;
+        private Node cdr;
+        private Special form;
+    
+        public Cons(Node a, Node d)
+        {
+            car = a;
+            cdr = d;
+            parseList();
+        }
+    
+
+        void parseList()
+        {
+            
+           if(car.isSymbol() == true)
+            { 
+                Ident Irt = (Ident) car;
+                string str = Irt.getIdentVal();
+
+                if(str.Equals("'"))   
+                {
+                        this.form = new Quote();
+                } 
+
+                else if (str.Equals("begin"))
+                {
+                        this.form = new Begin();
+                }
+                else if (str.Equals(("let")))
+                {
+                        this.form = new Let();
+                }
+                else if (str.Equals(("condition")))
+                {
+                        this.form = new Cond();
+                }
+
+                else if (str.Equals(("if")))
+                {
+                        this.form = new If();
+                }
+                else if (string.Equals(("lambda")))
+                {
+                        this.form = new Lambda();
+                }
+                else if (string.Equals(("define")))
+                {
+                        this.form = new Define();
+                }
+                else
+                {
+
+                    form = new Regular();
+                }
+        
+            }
+        }
+
+ 
+        public override void print(int n)
+        {
+            form.print(this, n, false);
+        }
+
+        public override void print(int n, bool p)
+        {
+            form.print(this, n, p);
+        }
+        
+         public override Node getCar()
+        {
+            return car;
+        }
+
+        public override Node getCdr()
+        {
+             return cdr;    
+        }
+    }
+}
+
