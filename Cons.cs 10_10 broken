@@ -1,0 +1,188 @@
+// Cons -- Parse tree node class for representing a Cons node
+
+using System;
+
+namespace Tree
+{
+    public class Cons : Node
+    {
+        private Node car;
+        private Node cdr;
+        private Special form;
+    
+        public Cons(Node a, Node d)
+        {
+
+            Console.WriteLine("Constructor");
+            car = a;
+            cdr = d;
+            parseList(car);
+            Console.WriteLine("Couldn't go to parseList");
+        }
+    
+        int indentVar = 0; //negative if not needed.
+        int parenVar = 0;
+        // parseList() `parses' special forms, constructs an appropriate
+        // object of a subclass of Special, and stores a pointer to that
+        // object in variable form.  It would be possible to fully parse
+        // special forms at this point.  Since this causes complications
+        // when using (incorrect) programs as data, it is easiest to let
+        // parseList only look at the car for selecting the appropriate
+        // object from the Special hierarchy and to leave the rest of
+        // parsing up to the interpreter.
+        void parseList(Node rt)
+        {
+            try
+            {
+                /*
+            if(car == null)
+                Console.WriteLine("car is null");
+            else if(car.isSymbol() == true)
+            { 
+                Ident Irt = (Ident) car;
+                string str = Irt.getIdentVal();
+
+                if(str.Equals("'"))   
+                {
+                        this.form = new Quote();
+                } 
+                //else if(ident == begin || let || condition)
+                else if (str.Equals("begin"))
+                {
+                        this.form = new Begin();
+                }
+                else if (str.Equals(("let")))
+                {
+                        this.form = new Let();
+                }
+                else if (str.Equals(("condition")))
+                {
+                        this.form = new Cond();
+                }
+                //else if(ident == if || lambda || define)
+                else if (str.Equals(("if")))
+                {
+                        this.form = new If();
+                }
+                else if (string.Equals(("lambda")))
+                {
+                        this.form = new Lambda();
+                }
+                else if (string.Equals(("define")))
+                {
+                        this.form = new Define();
+                }
+                else
+                {
+                //set define and regular
+                    form = new Regular();
+
+                }
+                
+                
+            }
+            else */if(this.getCar().isString() == true)
+            { 
+                Console.WriteLine("Cons car print: String");
+                this.print(indentVar);
+            }
+            else if(this.getCar().isNull() == true)
+            { 
+                Console.WriteLine("Cons car print: null");
+                this.print(indentVar);
+            }
+            //else if(rt.getCar().isPair() == true)
+            //{ 
+            //    print(indentVar);
+            //}
+            //still confused about this
+            else
+            { 
+                parseList(this.getCar());
+            }
+            
+            //Copy above with cdr instead of car FIXME
+            cdr.print(0);
+            
+            if(this.getCdr().isNumber() == true)
+            { 
+                Console.WriteLine("Cons cdr print: Int");
+                this.print(indentVar);
+            }
+            else if(this.getCdr().isBool() == true)
+            { 
+                Console.WriteLine("Cons cdr print: Bool");
+                this.print(indentVar);
+                //may need a return value FIXME
+            }
+            else if(this.getCdr().isSymbol() == true)
+            { 
+                Console.WriteLine("Cons cdr print: Ident");
+                this.print(indentVar);
+            }
+            else if(this.getCdr().isString() == true)
+            { 
+                Console.WriteLine("Cons cdr print: String");
+                this.print(indentVar);
+            }
+            else if(this.getCdr().isNull() == true)
+            { 
+                Console.WriteLine("Cons cdr print: Null");
+                this.print(indentVar);
+            }
+            //else if(rt.getCdr().isPair() == true)
+           //{ 
+            //    print(indentVar);
+            //}
+            else
+            { 
+                parseList(this.getCdr());
+            }
+        }
+            catch
+            {
+                Console.WriteLine("null");
+            }
+        }
+        
+
+        
+ 
+        public override void print(int n)
+        {
+            //car.print(0);
+           // cdr.print(0);
+            try
+            {
+            form.print(this, n, false);
+            }
+            catch
+            {
+                Console.WriteLine("Print Error");
+            }
+        }
+
+        public override void print(int n, bool p)
+        {
+            form.print(this, n, p);
+        }
+
+        public override Node getCar()
+        {
+            return car;
+        }
+
+        public override Node getCdr()
+        {
+             return cdr;    
+        }
+        
+       /* public bool isPair()
+        {
+            if(Cons.car )
+        }
+        */
+        
+    }
+}
+
